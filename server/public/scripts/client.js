@@ -5,7 +5,7 @@ console.log('JS is sourced!');
 // 3 - create a functions for mark as complete & delete.
 
 
-
+getTodos()
 
 
 function submitItem(event) {
@@ -31,15 +31,15 @@ function getTodos() {
         method: 'GET',
         url: '/todos'
     }).then(response => {
-        let tbody = document.getElementsById("todobody")
+        let tbody = document.getElementById("todobody")
         tbody.innerHTML = '';
         for (let todo of response.data) {
 
             tbody.innerHTML += `
-      <tr>
+      <tr data-testid="toDoItem" class="${todo.isComplete && "completed"}">
         <td>${todo.text}</td>
-        <td><button onclick="MarkAsComplete(${todo.id})">Mark As Complete</button></td>
-        <td><button onclick="deleteTodo(${todo.id})">Delete</button></td>
+        <td><button data-testid="completeButton" onclick="MarkAsComplete(${todo.id})">Mark As Complete</button></td>
+        <td><button data-testid="deleteButton" onclick="deleteTodo(${todo.id})">Delete</button></td>
       </tr>
     `;
         }
@@ -50,7 +50,23 @@ function getTodos() {
         console.log('GET response went wrong', error);
     });
 }
-function MarkAsComplete (){
-
+function MarkAsComplete(id) {
+    axios({
+        method: 'PUT',
+        url: `/todos/${id}`
+    }).then(response => {
+        getTodos();
+    }).catch(error => {
+        console.log('PUT function failed', error);
+    });
 }
-function deleteTodo(){}
+function deleteTodo(id) {
+    axios({
+        method: 'DELETE',
+        url: `/todos/${id}`
+    }).then(response => {
+        getTodos();
+    }).catch(error => {
+        console.log('PUT function failed', error);
+    });
+}

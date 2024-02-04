@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => { 
     const todoId = req.params.id;
 
-    const sqlQuery = `UPDATE "todos" SET isComplete = true WHERE id=$1;`;
+    const sqlQuery = `UPDATE "todos" SET "isComplete" = true WHERE id=$1;`;
 
     pool.query(sqlQuery, [todoId])
         .then(
