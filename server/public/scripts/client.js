@@ -1,8 +1,8 @@
 console.log('JS is sourced!');
 //client.js steps
-// 1 - create a function for submitting todo to the server
+//1 - create a function for submitting todo to the server
 //2 - create a function fot getting all todo & shpw on the table
-// 3 - create a functions for mark as complete & delete.
+//3 - create a functions for mark as complete & delete.
 
 
 getTodos()
